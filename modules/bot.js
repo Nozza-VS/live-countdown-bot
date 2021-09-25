@@ -7,19 +7,6 @@ import { messageHandler } from "./messageHandler.js";
 import { updateCountdowns } from "./updateManager.js";
 
 const client = new Client({
-  presence: {
-    status: "online",
-    activities: [
-      { type: "PLAYING", name: "with time" },
-      { type: "PLAYING", name: "with 100 seconds" },
-      { type: "WATCHING", name: "for !help" },
-      { type: "WATCHING", name: "times change" },
-      { type: "WATCHING", name: "the time fly by" },
-      { type: "WATCHING", name: "https://bit.ly/live-bot" },
-      { type: "LISTENING", name: "the clock tick" },
-      { type: "COMPETING", name: "for time" },
-    ],
-  },
   makeCache: Options.cacheWithLimits({
     MessageManager: 0,
     PresenceManager: 0,
@@ -58,10 +45,6 @@ client.on("messageCreate", messageHandler);
 
 client.on("guildCreate", guild => {
   addGuild(guild.id, clientId);
-  if (guild.systemChannel && guild.me?.permissionsIn(guild.systemChannel.id).has("SEND_MESSAGES"))
-    guild.systemChannel.send(
-      "**Glad to be a part of your server** :heart:\nYou're probably looking for `!help`"
-    );
   log(`Added to ${guild.name} (${guild.id})`);
 });
 
